@@ -10425,6 +10425,7 @@ end)
 		local SmoothAntivoidColor = {hue = 284, sat = 100, val = 100}
 		local SmoothAntivoidPart
 		local SAVPConnection
+		local isTouched
 		SmoothAntivoid = GuiLibrary.ObjectsThatCanBeSaved.WorldWindow.Api.CreateOptionsButton({
 			Name = "SmoothAntivoid",
 			Function = function(callback)
@@ -10440,11 +10441,14 @@ end)
 						SmoothAntivoidPart.Color = Color3.fromHSV(SmoothAntivoidColor.hue, SmoothAntivoidColor.sat, SmoothAntivoidColor.val)
 
 						SAVPConnection = SmoothAntivoidPart.Touched:Connect(function(touchedpart)
-							if touchedpart.Parent == lplr.Character and entityLibrary.isAlive then
+							if touchedpart.Parent == lplr.Character and entityLibrary.isAlive and not isTouched then
 								for i = 1, 8 do
 									entityLibrary.character.HumanoidRootPart.Velocity = Vector3.new(entityLibrary.character.HumanoidRootPart.Velocity.X, entityLibrary.character.HumanoidRootPart.Velocity.Y + 3, entityLibrary.character.HumanoidRootPart.Velocity.Z)
 									task.wait(0.1)
 								end
+								isTouched = true
+								task.wait(1)
+								isTouched = false
 							end
 						end)
 					end)
