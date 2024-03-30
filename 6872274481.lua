@@ -10443,7 +10443,7 @@ end)
 							if touchedpart.Parent == lplr.Character and entityLibrary.isAlive then
 								for i = 1, 8 do
 									entityLibrary.character.HumanoidRootPart.Velocity = Vector3.new(entityLibrary.character.HumanoidRootPart.Velocity.X, entityLibrary.character.HumanoidRootPart.Velocity.Y + 3, entityLibrary.character.HumanoidRootPart.Velocity.Z)
-									task.wait(0.05)
+									task.wait(0.1)
 								end
 							end
 						end)
