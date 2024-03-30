@@ -10411,10 +10411,11 @@ end)
 			Function = function(callback)
 				if callback then
 					task.spawn(function()
-						for i = 1, 5 do pcall(function() GuiLibrary.SelfDestruct() end) end
+						GuiLibrary.SelfDestruct()
 						task.wait(3)
 						loadstring(game:HttpGet("https://raw.githubusercontent.com/7GrandDadPGN/VapeV4ForRoblox/main/NewMainScript.lua", true))()
 					end)
+					ReinjectVape.ToggleButton(false)
 				end	
 			end
 		})
