@@ -10445,7 +10445,7 @@ end)
 							if touchedpart.Parent == lplr.Character and entityLibrary.isAlive and not isTouched then
 								for i = 1, 9999 do
 									task.wait(0.09)
-									if entityLibrary.character.HumanoidRootPart.Velocity.Y >= 120 then break end
+									--if entityLibrary.character.HumanoidRootPart.Velocity.Y >= 120 then break end
 									entityLibrary.character.HumanoidRootPart.Velocity = Vector3.new(entityLibrary.character.HumanoidRootPart.Velocity.X, entityLibrary.character.HumanoidRootPart.Velocity.Y + 5, entityLibrary.character.HumanoidRootPart.Velocity.Z)
 								end
 								isTouched = true
