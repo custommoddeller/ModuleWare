@@ -5450,6 +5450,7 @@ runFunction(function()
 						task.spawn(function()
                             obj.Parent.Text = Messages[math.random(1,#Messages)]
 						end)
+                        return obj
 					end
 				})
             else
