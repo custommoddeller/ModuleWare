@@ -9961,7 +9961,7 @@ end)
 			Name = "FPSUnlocker",
 			Function = function(callback)
 				if callback then
-					setfpscap(99999999999999999999)
+					setfpscap(2001)
 				end
 			end
 		})
@@ -10350,6 +10350,130 @@ end)
 						end
 					end
 				end)
+				end
+			end
+		})
+	end)
+
+	runFunction(function()
+		local UpdateVape = {Enabled = false}
+		UpdateVape = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
+			Name = "UpdateVape",
+			Function = function(callback)
+				if callback then
+					task.spawn(function()
+						writefile("vape/CustomModules/6872274481.lua", game:HttpGet("https://raw.githubusercontent.com/custommoddeller/vape-v4-model-test/main/6872274481.lua"))
+						warningNotification("Vape", "Updated Vape! Reload Config", 5)
+						UpdateVape.ToggleButton(false)
+					end)
+				end	
+			end
+		})
+	end)
+
+	runFunction(function()
+		local BoostAirJump = {Enabled = false}
+		BoostAirJump = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+			Name = "BoostAirJump",
+			Function = function(callback)
+				if callback then
+					task.spawn(function()
+						repeat
+							task.wait()
+							entityLibrary.character.HumanoidRootPart.Velocity = Vector3.new(entityLibrary.character.HumanoidRootPart.Velocity.X, entityLibrary.character.HumanoidRootPart.Velocity.Y + 12, entityLibrary.character.HumanoidRootPart.Velocity.Z)
+						until (not BoostAirJump.Enabled)
+					end)
+				end	
+			end
+		})
+	end)
+
+	runFunction(function()
+		local ForceCustomMatchHost = {Enabled = false}
+		ForceCustomMatchHost = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
+			Name = "ForceCustomMatchHost",
+			Function = function(callback)
+				if callback then
+					task.spawn(function()
+						repeat task.wait() until game.Players.LocalPlayer
+						game.Players.LocalPlayer:SetAttribute("CustomMatchRole", "host")
+						warningNotification("ForceCustomMatchHost", "This exploit found by _dremi is patched! Only here for visuals.", 5)
+					end)
+				end	
+			end
+		})
+	end)
+
+	runFunction(function()
+		local ReinjectVape = {Enabled = false}
+		ReinjectVape = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
+			Name = "ReinjectVape",
+			Function = function(callback)
+				if callback then
+					task.spawn(function()
+						for i = 1, 5 do pcall(function() GuiLibrary.SelfDestruct() end) end
+						task.wait(3)
+						loadstring(game:HttpGet("https://raw.githubusercontent.com/7GrandDadPGN/VapeV4ForRoblox/main/NewMainScript.lua", true))()
+					end)
+				end	
+			end
+		})
+	end)
+
+	runFunction(function()
+		local SmoothAntivoid = {Enabled = false}
+		local SmoothAntivoidPart
+		local SAVPConnection
+		SmoothAntivoid = GuiLibrary.ObjectsThatCanBeSaved.WorldWindow.Api.CreateOptionsButton({
+			Name = "SmoothAntivoid",
+			Function = function(callback)
+				if callback then
+					task.spawn(function()
+						SmoothAntivoidPart = Instance.new("Part")
+						SmoothAntivoidPart.Parent = workspace
+						SmoothAntivoidPart.Size = Vector3.new(10000, 5, 10000)
+						SmoothAntivoidPart.Position = Vector3.new(entityLibrary.character.HumanoidRootPart.Position.X, 45, entityLibrary.character.HumanoidRootPart.Position.Z)
+
+						SAVPConnection = SmoothAntivoidPart.Touched:Connect(function(touchedpart)
+							if touchedpart.Parent == lplr.Character and entityLibrary.isAlive then
+								for i = 1, 10 do
+									entityLibrary.character.HumanoidRootPart.Velocity = Vector3.new(entityLibrary.character.HumanoidRootPart.Velocity.X, entityLibrary.character.HumanoidRootPart.Velocity.Y + 10, entityLibrary.character.HumanoidRootPart.Velocity.Z)
+								end
+							end
+						end)
+					end)
+				else
+					SmoothAntivoidPart:Destroy()
+					SAVPConnection:Disconnect()
+				end	
+			end
+		})
+	end)
+
+	runFunction(function()
+		local InfHealth = {Enabled = false}
+		InfHealth = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
+			Name = "InfHealth",
+			Function = function(callback)
+				if callback then 
+					task.spawn(function()
+						repeat
+							task.wait()
+							game:GetService("ReplicatedStorage")
+							:WaitForChild("rbxts_include")
+							:WaitForChild("node_modules")
+							:WaitForChild("@rbxts")
+							:WaitForChild("net")
+							:WaitForChild("out")
+							:WaitForChild("_NetManaged")
+							:WaitForChild("SwordSwingMiss"):FireServer(unpack({
+								[1] = {
+									["noHealIndicator"] = false,
+									["healAmount"] = 9.820553354116585,
+								}
+							}))
+						until (not InfHealth.Enabled)
+					end)
 				end
 			end
 		})
