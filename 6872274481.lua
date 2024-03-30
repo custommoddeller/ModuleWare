@@ -10424,6 +10424,7 @@ end)
 	runFunction(function()
 		local SmoothAntivoid = {Enabled = false}
 		local SmoothAntivoidColor = {hue = 284, sat = 100, val = 100}
+		local SmoothAntivoidYPos = {Value = 15}
 		local SmoothAntivoidPart
 		local SAVPConnection
 		local isTouched
@@ -10435,7 +10436,7 @@ end)
 						SmoothAntivoidPart = Instance.new("Part")
 						SmoothAntivoidPart.Parent = workspace
 						SmoothAntivoidPart.Size = Vector3.new(10000, 15, 10000)
-						SmoothAntivoidPart.Position = Vector3.new(entityLibrary.character.HumanoidRootPart.Position.X, 15, entityLibrary.character.HumanoidRootPart.Position.Z)
+						SmoothAntivoidPart.Position = Vector3.new(entityLibrary.character.HumanoidRootPart.Position.X, SmoothAntivoidYPos.Value, entityLibrary.character.HumanoidRootPart.Position.Z)
 						SmoothAntivoidPart.Anchored = true
 						SmoothAntivoidPart.CanCollide = false
 						SmoothAntivoidPart.Transparency = 0.5
@@ -10467,6 +10468,17 @@ end)
 					SmoothAntivoidPart.Color = Color3.fromHSV(hue, sat, val)
 				end
 			end
+		})
+		SmoothAntivoidYPos = SmoothAntivoid.CreateSlider({
+			Name = "Y Position",
+			Min = -50,
+			Max = 100, 
+			Function = function(val)
+				if SmoothAntivoid.Enabled and SmoothAntivoidPart then 
+					SmoothAntivoidPart.Position.Y = val
+				end
+			end,
+			Default = 25
 		})
 	end)
 
