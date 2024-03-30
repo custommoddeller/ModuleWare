@@ -10480,6 +10480,7 @@ end)
 			end,
 			Default = 25
 		})
+		warningNotification("FUCK THIS", "HOLY SHIT ARCEUS X IS SO DOG SHIT", 5)
 	end)
 
 	runFunction(function()
