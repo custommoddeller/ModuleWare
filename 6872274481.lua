@@ -10446,8 +10446,8 @@ end)
 								task.spawn(function()
 									repeat
 										entityLibrary.character.HumanoidRootPart.Velocity = Vector3.new(entityLibrary.character.HumanoidRootPart.Velocity.X, entityLibrary.character.HumanoidRootPart.Velocity.Y + 3, entityLibrary.character.HumanoidRootPart.Velocity.Z)
-										task.wait(0.09)
-									until (entityLibrary.character.HumanoidRootPart.Velocity.Y >= 60 or not entityLibrary.isAlive)
+										task.wait(0.06)
+									until (entityLibrary.character.HumanoidRootPart.Velocity.Y >= 90 or not isTouched)
 								end)
 								isTouched = true
 								task.wait(1)
