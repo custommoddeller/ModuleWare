@@ -5445,7 +5445,7 @@ runFunction(function()
         Name = "ModuleWareIndicators",
         Function = function(Callback)
             if callback then
-				old = debug.setupvalue(bedwars.DamageIndicator, 10, {
+				debug.setupvalue(bedwars.DamageIndicator, 10, {
 					Create = function(self, obj, ...)
 						task.spawn(function()
                             obj.Parent.Text = Messages[math.random(1,#Messages)]
