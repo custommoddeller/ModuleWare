@@ -9923,7 +9923,7 @@ end)
 		})
 	end)
 
-runFunction(function() -- credits to _dremi on discord for finding the method (godpaster and the other skid skidded it from him)
+runFunction(function()
 	local Clipper = {Enabled = false}
 	Clipper = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
 		Name = "Clipper",
@@ -9931,21 +9931,6 @@ runFunction(function() -- credits to _dremi on discord for finding the method (g
 			if callback then
 				entityLibrary.character.HumanoidRootPart.CFrame = CFrame.new(entityLibrary.character.HumanoidRootPart.CFrame.X, entityLibrary.character.HumanoidRootPart.CFrame.Y - 12, entityLibrary.character.HumanoidRootPart.CFrame.Z)
 				Clipper.ToggleButton(false)
-			end
-		end
-	})
-	local emo = {}
-	for i,v in pairs(bedwars.EmoteMeta) do 
-		table.insert(emo, v.name)
-		emo2[v.name] = i
-	end
-	table.sort(emo, function(a, b) return a:lower() < b:lower() end)
-	SetEmoteList = SetEmote.CreateDropdown({
-		Name = 'Emote',
-		List = emo,
-		Function = function(emote)
-			if SetEmote.Enabled then 
-				lplr:SetAttribute('EmoteTypeSlot1', emo2[emote])
 			end
 		end
 	})
