@@ -10908,7 +10908,6 @@ end)
 		})
 	end)
 	runFunction(function()
-		local transformed = false
 		local GameThemeV2 = {["Enabled"] = false}
 		local themeselected = {["Value"] = "OldBedwars"}
 	
@@ -11063,14 +11062,7 @@ end)
 			["Name"] = "GameThemeV2",
 			["Function"] = function(callback) 
 				if callback then 
-					if not transformed then
-						transformed = true
-						themefunctions[themeselected["Value"]]()
-					else
-						GameThemeV2["ToggleButton"](false)
-					end
-				else
-					CreateNotification("GameTheme", "Disabled Next Game", 10)
+					themefunctions[themeselected["Value"]]()
 				end
 			end,
 			["ExtraText"] = function()
