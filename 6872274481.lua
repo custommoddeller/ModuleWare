@@ -9887,7 +9887,7 @@ end)
 	end)
 
 	
-	runFunction(function() -- credits to _dremi on discord for finding the method (godpaster and the other skid skidded it from him)
+--[[	runFunction(function() -- credits to _dremi on discord for finding the method (godpaster and the other skid skidded it from him)
 		local SetEmote = {}
 		local SetEmoteList = {Value = ''}
 		local oldemote
@@ -9921,20 +9921,20 @@ end)
 				end
 			end
 		})
-	end)
+	end)--]]
 
-runFunction(function()
-	local Clipper = {Enabled = false}
-	Clipper = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
-		Name = "Clipper",
-		Function = function(callback)
-			if callback then
-				entityLibrary.character.HumanoidRootPart.CFrame = CFrame.new(entityLibrary.character.HumanoidRootPart.CFrame.X, entityLibrary.character.HumanoidRootPart.CFrame.Y - 12, entityLibrary.character.HumanoidRootPart.CFrame.Z)
-				Clipper.ToggleButton(false)
+	runFunction(function()
+		local Clipper = {Enabled = false}
+		Clipper = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+			Name = "Clipper",
+			Function = function(callback)
+				if callback then
+					entityLibrary.character.HumanoidRootPart.CFrame = CFrame.new(entityLibrary.character.HumanoidRootPart.CFrame.X, entityLibrary.character.HumanoidRootPart.CFrame.Y - 12, entityLibrary.character.HumanoidRootPart.CFrame.Z)
+					Clipper.ToggleButton(false)
+				end
 			end
-		end
-	})
-end)
+		})
+	end)
 
 	runFunction(function()
 		local hasTeleported = false
