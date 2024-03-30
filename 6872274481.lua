@@ -10435,7 +10435,7 @@ end)
 						SmoothAntivoidPart = Instance.new("Part")
 						SmoothAntivoidPart.Parent = workspace
 						SmoothAntivoidPart.Size = Vector3.new(10000, 15, 10000)
-						SmoothAntivoidPart.Position = Vector3.new(entityLibrary.character.HumanoidRootPart.Position.X, 31, entityLibrary.character.HumanoidRootPart.Position.Z)
+						SmoothAntivoidPart.Position = Vector3.new(entityLibrary.character.HumanoidRootPart.Position.X, 15, entityLibrary.character.HumanoidRootPart.Position.Z)
 						SmoothAntivoidPart.Anchored = true
 						SmoothAntivoidPart.CanCollide = false
 						SmoothAntivoidPart.Transparency = 0.5
@@ -10443,10 +10443,10 @@ end)
 
 						SAVPConnection = SmoothAntivoidPart.Touched:Connect(function(touchedpart)
 							if touchedpart.Parent == lplr.Character and entityLibrary.isAlive and not isTouched then
-								for i = 1, 69 dp
-									if entityLibrary.character.HumanoidRootPart.Velocity.Y >= 90 or not isTouched then break return end
+								for i = 1, 8 do
+									if entityLibrary.character.HumanoidRootPart.Velocity.Y >= 75 then warningNotification("yes", "ok", 2) end
 									entityLibrary.character.HumanoidRootPart.Velocity = Vector3.new(entityLibrary.character.HumanoidRootPart.Velocity.X, entityLibrary.character.HumanoidRootPart.Velocity.Y + 3, entityLibrary.character.HumanoidRootPart.Velocity.Z)
-									task.wait(0.06)
+									task.wait(0.1)
 								end
 								isTouched = true
 								task.wait(1)
