@@ -10414,6 +10414,48 @@ end)
 	end)
 
 	runFunction(function()
+		local SetEmote = {Enabled = false}
+		local SetEmoteList = {Value = ""}
+		local oldemote
+		local SetEmoteName2 = {}
+		SetEmote = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
+			Name = "SetEmote",
+			Function = function(callback)
+				if callback then
+					oldemote = lplr:GetAttribute("EmoteTypeSlot1")
+					task.spawn(function()
+						repeat task.wait() until matchState ~= 0 or not SetEmote.Enabled
+						if SetEmote.Enabled then
+							oldemote = lplr:GetAttribute("EmoteTypeSlot1")
+							lplr:SetAttribute("EmoteTypeSlot1", SetEmoteName2[SetEmoteList.Value])
+						end
+					end)
+				else
+					if oldemote then 
+						lplr:SetAttribute("EmoteTypeSlot1", oldemote)
+						oldemote = nil 
+					end
+				end
+			end
+		})
+		local SetEmoteName = {}
+		for i,v in pairs(bedwars.EmoteMeta) do 
+			table.insert(SetEmoteName, v.name)
+			SetEmoteName2[v.name] = i
+		end
+		table.sort(SetEmoteName, function(a, b) return a:lower() < b:lower() end)
+		SetEmoteList = SetEmote.CreateDropdown({
+			Name = "Emote",
+			List = SetEmoteName,
+			Function = function()
+				if SetEmote.Enabled then 
+					lplr:SetAttribute("EmoteTypeSlot1", SetEmoteName2[SetEmoteList.Value]) = SetEmoteName2[SetEmoteList.Value]
+				end
+			end
+		})
+	end)
+
+	runFunction(function()
 		local BoostAirJump = {Enabled = false}
 		BoostAirJump = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
 			Name = "BoostAirJump",
