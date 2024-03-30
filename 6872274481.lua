@@ -9843,6 +9843,519 @@ end)
 	end)
 
 	runFunction(function()
+		local hasTeleported = false
+		local TweenService = game:GetService("TweenService")
+	
+		function findNearestPlayer()
+			local nearestPlayer = nil
+			local minDistance = math.huge
+	
+			for _,v in pairs(game.Players:GetPlayers()) do
+				if v ~= lplr and v.Character and v.Character:FindFirstChild("HumanoidRootPart") and v.Team ~= lplr.Team and v.Character:FindFirstChild("Humanoid").Health > 0 then
+					local distance = (v.Character.HumanoidRootPart.Position - lplr.Character.HumanoidRootPart.Position).magnitude
+					if distance < minDistance then
+						nearestPlayer = v
+						minDistance = distance
+					end
+				end
+			end
+			return nearestPlayer
+		end
+	
+	
+		function tweenToNearestPlayer()
+			local nearestPlayer = findNearestPlayer()
+			if nearestPlayer and not hasTeleported then
+				hasTeleported = true
+	
+				local tweenInfo = TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 0, false, 0)
+	
+				local tween = TweenService:Create(lplr.Character.HumanoidRootPart, TweenInfo.new(0.64), {CFrame = nearestPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0, 2, 0)})
+				tween:Play()
+			end
+		end
+	
+		PlayerTp = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+			Name = "PlayerTP",
+			Function = function(callback)
+				if callback then
+					lplr.Character:FindFirstChildOfClass("Humanoid"):ChangeState(Enum.HumanoidStateType.Dead)
+					lplr.CharacterAdded:Connect(function()
+						wait(0.3)
+						tweenToNearestPlayer()
+					end)
+					hasTeleported = false
+					PlayerTp["ToggleButton"](false)
+				end
+			end,
+			["HoverText"] = "Teleports you to the closest player that is not on your team (BETA)"
+		})
+	end)
+	runFunction(function()
+		local hasTeleported = false
+		local TweenService = game:GetService("TweenService")
+	
+		function findNearestBed()
+			local nearestBed = nil
+			local minDistance = math.huge
+	
+			for _,v in pairs(game.Workspace:GetDescendants()) do
+				if v.Name:lower() == "bed" and v:FindFirstChild("Covers") and v:FindFirstChild("Covers").BrickColor ~= lplr.Team.TeamColor then
+					local distance = (v.Position - lplr.Character.HumanoidRootPart.Position).magnitude
+					if distance < minDistance then
+						nearestBed = v
+						minDistance = distance
+					end
+				end
+			end
+			return nearestBed
+		end
+		function tweenToNearestBed()
+			local nearestBed = findNearestBed()
+			if nearestBed and not hasTeleported then
+				hasTeleported = true
+	
+				local tweenInfo = TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 0, false, 0)
+	
+				local tween = TweenService:Create(lplr.Character.HumanoidRootPart, TweenInfo.new(0.64), {CFrame = nearestBed.CFrame + Vector3.new(0, 2, 0)})
+				tween:Play()
+			end
+		end
+		BedTp = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+			Name = "BedTp",
+			Function = function(callback)
+				if callback then
+					lplr.Character:FindFirstChildOfClass("Humanoid"):ChangeState(Enum.HumanoidStateType.Dead)
+					lplr.CharacterAdded:Connect(function()
+						wait(0.3) 
+						tweenToNearestBed()
+					end)
+					hasTeleported = false
+					BedTp["ToggleButton"](false)
+				end
+			end,
+			["HoverText"] = "Tp To Closest Bed | Works in 30v30 😱"
+		})
+	end)
+	runFunction(function()
+		InfiniteJump = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+			Name = "InfiniteJump",
+			Function = function(callback)
+				if callback then
+	
+				end
+			end
+		})
+		game:GetService("UserInputService").JumpRequest:Connect(function()
+			if not InfiniteJump.Enabled then return end
+			local localPlayer = game:GetService("Players").LocalPlayer
+			local character = localPlayer.Character
+			if character and character:FindFirstChildOfClass("Humanoid") then
+				local humanoid = character:FindFirstChildOfClass("Humanoid")
+				humanoid:ChangeState("Jumping")
+			end
+		end)         
+	end)
+	runFunction(function()
+		FPSUnlocker = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
+			Name = "FPSUnlocker",
+			Function = function(callback)
+				if callback then
+					setfpscap(99999999999999999999)
+				end
+			end
+		})
+	end)
+	local skidDetected = {}
+	runFunction(function()
+		SkidDetector = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+			Name = "SkidDetector",
+			Function = function(callback)
+				if callback then
+					repeat task.wait() until game:IsLoaded()
+					local words = {
+						"LoveCleint",
+						"Love Client",
+						"ware",
+						"kingware",
+						"ColdClient",
+						"COLD CLIENT",
+						"client",
+						"privet",
+						"privete",
+						"pistonware",
+						"knox",
+						"themagicpiston"   
+					}
+	
+					for i, v in pairs(game:GetService("Players"):GetChildren()) do
+						v.Chatted:Connect(function(msg)
+							for _, word in ipairs(words) do
+								if string.find(string.lower(msg), string.lower(word)) and not skidDetected[v.Name] then
+									skidDetected[v.Name] = true
+									warningNotification("Skid Detector", v.Name.." is a likely skid!", 100) 
+									break
+								end
+							end
+						end)
+					end
+				end
+			end
+		})
+	end)
+	
+	local function lerpColor(color1, color2, t)
+		return Color3.new(
+			color1.r + (color2.r - color1.r) * t,
+			color1.g + (color2.g - color1.g) * t,
+			color1.b + (color2.b - color1.b) * t
+		)
+	end
+	
+	local function fadeColors(color1, color2, duration)
+		local startTime = tick()
+		while true do
+			local elapsedTime = tick() - startTime
+			local t = math.abs(math.sin(elapsedTime / duration))
+			highlight2.FillColor = lerpColor(color1, color2, t)
+			wait()
+		end
+	end
+	runFunction(function()
+		EnchantedSwordEffect = GuiLibrary.ObjectsThatCanBeSaved.RenderWindow.Api.CreateOptionsButton({
+			Name = "EnchantedSwordEffect",
+			Function = function(callback)
+				if callback then 
+					spawn(function()
+						local cam = game.Workspace.CurrentCamera
+						Connection = cam.Viewmodel.ChildAdded:Connect(function(v)
+							highlight2 = Instance.new('Highlight')
+							highlight2.Parent = v.Handle
+							if v:FindFirstChild("Handle") then
+								pcall(function()
+									highlight2.FillTransparency = .6
+									highlight2.OutlineTransparency = 1
+									fadeColors(Color3.fromRGB(137, 207, 240), Color3.fromRGB(221, 193, 255), 1.5)
+								end)
+							end
+						end)
+						spawn(function()
+							repeat task.wait() until unejected == true 
+							EnabledOutlines = false
+							if Connection ~= nil then
+								if type(Connection) == "userdata" then
+									Connection:Disconnect()
+									Connection = nil
+								end
+							end
+						end)
+					end)
+				else
+					EnabledOutlines = false
+					if Connection ~= nil then
+						if type(Connection) == "userdata" then
+							Connection:Disconnect()
+							Connection = nil
+						end
+					end
+				end
+			end
+		})
+	end)
+	runFunction(function()
+		CustomKeystokes = GuiLibrary.ObjectsThatCanBeSaved.RenderWindow.Api.CreateOptionsButton({
+			Name = "CustomKeystokes",
+			Function = function(callback)
+				if callback then 
+					if game:GetService("CoreGui"):FindFirstChild("KEYS") then
+					game:GetService("CoreGui"):FindFirstChild("KEYS"):Destroy()
+				end
+				wait(1)
+				local ScreenGui = Instance.new("ScreenGui")
+				ScreenGui.Parent =  game:GetService("CoreGui")
+				ScreenGui.Name = 'KEYS'
+				local keystroke = Instance.new("Frame")
+				local AKey = Instance.new("Frame")
+				local UICorner = Instance.new("UICorner")
+				local ALabel = Instance.new("TextLabel")
+				local SKey = Instance.new("Frame")
+				local UICorner_2 = Instance.new("UICorner")
+				local SLabel = Instance.new("TextLabel")
+				local DKey = Instance.new("Frame")
+				local UICorner_3 = Instance.new("UICorner")
+				local DLabel = Instance.new("TextLabel")
+				local WKey = Instance.new("Frame")
+				local UICorner_4 = Instance.new("UICorner")
+				local WLabel = Instance.new("TextLabel")
+				local SpaceBar = Instance.new("Frame")
+				local UICorner_5 = Instance.new("UICorner")
+				local SpaceBarLabel = Instance.new("TextLabel")
+				
+				keystroke.Name = "keystroke"
+				keystroke.Parent = ScreenGui
+				keystroke.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+				keystroke.BackgroundTransparency = 1.000
+				keystroke.Position = UDim2.new(-0.00722312089, 0, 0.690598845, 0)
+				keystroke.Size = UDim2.new(0, 285, 0, 287)
+				
+				AKey.Name = "AKey"
+				AKey.Parent = keystroke
+				AKey.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+				AKey.BackgroundTransparency = 0.450
+				AKey.Position = UDim2.new(0.0454545468, 0, 0.536585391, 0)
+				AKey.Size = UDim2.new(0, 49, 0, 49)
+				
+				UICorner.Parent = AKey
+				
+				ALabel.Name = "ALabel"
+				ALabel.Parent = AKey
+				ALabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+				ALabel.BackgroundTransparency = 1.000
+				ALabel.Position = UDim2.new(-0.142857075, 0, 0, 0)
+				ALabel.Size = UDim2.new(0, 62, 0, 50)
+				ALabel.Font = Enum.Font.FredokaOne
+				ALabel.Text = "A"
+				ALabel.TextColor3 = Color3.fromRGB(125, 38, 205)
+				ALabel.TextSize = 32.000
+				
+				SKey.Name = "SKey"
+				SKey.Parent = keystroke
+				SKey.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+				SKey.BackgroundTransparency = 0.450
+				SKey.Position = UDim2.new(0.238436997, 0, 0.536585391, 0)
+				SKey.Size = UDim2.new(0, 49, 0, 49)
+				
+				UICorner_2.Parent = SKey
+				
+				SLabel.Name = "SLabel"
+				SLabel.Parent = SKey
+				SLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+				SLabel.BackgroundTransparency = 1.000
+				SLabel.Position = UDim2.new(-0.122448914, 0, -0.0204081628, 0)
+				SLabel.Size = UDim2.new(0, 62, 0, 50)
+				SLabel.Font = Enum.Font.FredokaOne
+				SLabel.Text = "S"
+				SLabel.TextColor3 = Color3.fromRGB(125, 38, 205)
+				SLabel.TextSize = 32.000
+				
+				DKey.Name = "DKey"
+				DKey.Parent = keystroke
+				DKey.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+				DKey.BackgroundTransparency = 0.450
+				DKey.Position = UDim2.new(0.431419432, 0, 0.540069699, 0)
+				DKey.Size = UDim2.new(0, 49, 0, 49)
+				
+				UICorner_3.Parent = DKey
+				
+				DLabel.Name = "DLabel"
+				DLabel.Parent = DKey
+				DLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+				DLabel.BackgroundTransparency = 1.000
+				DLabel.Position = UDim2.new(-0.142857015, 0, 0, 0)
+				DLabel.Size = UDim2.new(0, 62, 0, 50)
+				DLabel.Font = Enum.Font.FredokaOne
+				DLabel.Text = "D"
+				DLabel.TextColor3 = Color3.fromRGB(125, 38, 205)
+				DLabel.TextSize = 32.000
+				
+				WKey.Name = "WKey"
+				WKey.Parent = keystroke
+				WKey.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+				WKey.BackgroundTransparency = 0.450
+				WKey.Position = UDim2.new(0.238436982, 0, 0.347000003, 0)
+				WKey.Size = UDim2.new(0, 49, 0, 49)
+				
+				UICorner_4.Parent = WKey
+				
+				WLabel.Name = "WLabel"
+				WLabel.Parent = WKey
+				WLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+				WLabel.BackgroundTransparency = 1.000
+				WLabel.Position = UDim2.new(-0.122448921, 0, -0.00204081833, 0)
+				WLabel.Size = UDim2.new(0, 62, 0, 50)
+				WLabel.Font = Enum.Font.FredokaOne
+				WLabel.Text = "W"
+				WLabel.TextColor3 = Color3.fromRGB(125, 38, 205)
+				WLabel.TextSize = 32.000
+				
+				SpaceBar.Name = "SpaceBar"
+				SpaceBar.Parent = keystroke
+				SpaceBar.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+				SpaceBar.BackgroundTransparency = 0.450
+				SpaceBar.Position = UDim2.new(0.0454544872, 0, 0.742160261, 0)
+				SpaceBar.Size = UDim2.new(0, 161, 0, 31)
+				
+				UICorner_5.Parent = SpaceBar
+				
+				SpaceBarLabel.Name = "SpaceBarLabel"
+				SpaceBarLabel.Parent = SpaceBar
+				SpaceBarLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+				SpaceBarLabel.BackgroundTransparency = 1.000
+				SpaceBarLabel.Position = UDim2.new(0.304347903, 0, -.3, 0)
+				SpaceBarLabel.Size = UDim2.new(0, 62, 0, 50)
+				SpaceBarLabel.Font = Enum.Font.FredokaOne
+				SpaceBarLabel.Text = "━━━━"
+				SpaceBarLabel.TextColor3 = Color3.fromRGB(125, 38, 205)
+				SpaceBarLabel.TextSize = 32.000
+				
+				local UserInputService = game:GetService("UserInputService")
+				
+				getgenv().keys = {
+					['Space'] = false;
+					['W'] = false;
+					['A'] = false;
+					['S'] = false;
+					['D'] = false;
+				}
+				
+				local wButton = WKey
+				
+				
+				local litColor = Color3.fromRGB(0, 0, 0)
+				
+				
+				local unlitColor = Color3.fromRGB(34, 34, 34)
+				
+				
+				UserInputService.InputBegan:Connect(function(input, gameProcessed)
+					if not gameProcessed then
+						
+						if input.KeyCode == Enum.KeyCode.W then
+							if wButton.BackgroundColor3 ~= litColor then
+								wButton.BackgroundColor3 = litColor
+							end
+						end
+					end
+				end)
+				
+				
+				UserInputService.InputEnded:Connect(function(input, gameProcessed)
+					if not gameProcessed then
+						
+						if input.KeyCode == Enum.KeyCode.W then
+							if wButton.BackgroundColor3 ~= unlitColor then
+				
+								wButton.BackgroundColor3 = unlitColor
+							end
+						end
+					end
+				end)
+				
+				
+				
+				local dButton = DKey
+				
+				
+				UserInputService.InputBegan:Connect(function(input, gameProcessed)
+					if not gameProcessed then
+						
+						if input.KeyCode == Enum.KeyCode.D then
+							if dButton.BackgroundColor3 ~= litColor then
+							dButton.BackgroundColor3 = litColor
+							end
+						end
+					end
+				end)
+				
+				
+				UserInputService.InputEnded:Connect(function(input, gameProcessed)
+					if not gameProcessed then
+						
+						if input.KeyCode == Enum.KeyCode.D then
+							if dButton.BackgroundColor3 ~= unlitColor then
+							dButton.BackgroundColor3 = unlitColor
+							end
+						end
+					end
+				end)
+				
+				
+				local aButton = AKey
+				
+				
+				UserInputService.InputBegan:Connect(function(input, gameProcessed)
+					if not gameProcessed then
+						
+						if input.KeyCode == Enum.KeyCode.A then
+							if aButton.BackgroundColor3 ~= litColor then
+							aButton.BackgroundColor3 = litColor
+							end
+						end
+					end
+				end)
+				
+				
+				UserInputService.InputEnded:Connect(function(input, gameProcessed)
+					if not gameProcessed then
+						
+						if input.KeyCode == Enum.KeyCode.A then
+							if aButton.BackgroundColor3 ~= unlitColor then
+							aButton.BackgroundColor3 = unlitColor
+							end
+						end
+					end
+				end)
+				
+				
+				
+				local sButton = SKey
+				
+				
+				
+				UserInputService.InputBegan:Connect(function(input, gameProcessed)
+					if not gameProcessed then
+						
+						if input.KeyCode == Enum.KeyCode.S then
+							if sButton.BackgroundColor3 ~= litColor then
+								sButton.BackgroundColor3 = litColor
+							end
+						end
+					end
+				end)
+				
+				
+				UserInputService.InputEnded:Connect(function(input, gameProcessed)
+					if not gameProcessed then
+						
+						if input.KeyCode == Enum.KeyCode.S then
+						if sButton.BackgroundColor3 ~= unlitColor then    
+							sButton.BackgroundColor3 = unlitColor
+						end
+						end
+					end
+				end)
+				
+				
+				local spaceButton = SpaceBar
+				
+				UserInputService.InputBegan:Connect(function(input, gameProcessed)
+					if not gameProcessed then
+						
+						if input.KeyCode == Enum.KeyCode.Space then
+						if spaceButton.BackgroundColor ~= litColor then
+							spaceButton.BackgroundColor3 = litColor
+						end
+						end
+					end
+				end)
+				
+				
+				UserInputService.InputEnded:Connect(function(input, gameProcessed)
+					if not gameProcessed then
+						
+						if input.KeyCode == Enum.KeyCode.Space then
+						if spaceButton.BackgroundColor ~= unlitColor then
+							spaceButton.BackgroundColor3 = unlitColor
+						end
+						end
+					end
+				end)
+				end
+			end
+		})
+	end)
+
+	runFunction(function()
 		local transformed = false
 		local TexturePacks = {["Enabled"] = false}
 		local packselected = {["Value"] = "OldBedwars"}
