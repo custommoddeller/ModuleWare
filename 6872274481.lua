@@ -5437,6 +5437,35 @@ runFunction(function()
 	})
 end)
 
+local Messages = {"Imagine not using supernova!", "ez", "blam!", "supernova!", "EZ!!", "Knock!", "Clapped!", "NoLifeIdiot!", "Asshole!", "BALLSHOT!", "Get beamed by supernova", "CockShot!", "Get beamed!",  "supernova on top!"}
+local old
+local FunnyIndicator = {Enabled = false}
+FunnyIndicator = GuiLibrary.ObjectsThatCanBeSaved.WorldWindow.Api.CreateOptionsButton({
+Name = "DamageIndicators",
+Function = function(Callback)
+	FunnyIndicator.Enabled = Callback
+	if FunnyIndicator.Enabled then
+		old = debug.getupvalue(bedwars.DamageIndicator, 10)["Create"]
+		debug.setupvalue(bedwars.DamageIndicator, 10, {
+			Create = function(self, obj, ...)
+				spawn(function()
+					pcall(function()
+						obj.Parent.Text = Messages[math.random(1, #Messages)]
+						obj.Parent.TextColor3 = Color3.fromHSV(tick() % 10 / 10, 2, 2)
+					end)
+				end)
+				return game:GetService("TweenService"):Create(obj, ...)
+			end
+		})
+	else
+		debug.setupvalue(bedwars.DamageIndicator, 10, {
+			Create = old
+		})
+		old = nil
+	end
+end
+})
+
 runFunction(function()
 	local old
 	local old2
