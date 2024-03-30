@@ -10448,8 +10448,8 @@ end)
 									repeat
 										entityLibrary.character.HumanoidRootPart.Velocity = Vector3.new(entityLibrary.character.HumanoidRootPart.Velocity.X, entityLibrary.character.HumanoidRootPart.Velocity.Y + 3, entityLibrary.character.HumanoidRootPart.Velocity.Z)
 										task.wait(0.1)
-									until (entityLibrary.character.HumanoidRootPart.Velocity >= 120 or not entityLibrary.isAlive or not isTouched)
-							end)
+									until (entityLibrary.character.HumanoidRootPart.Velocity.Y >= 120 or not entityLibrary.isAlive or not isTouched)
+								end)
 								isTouched = true
 								task.wait(1)
 								isTouched = false
