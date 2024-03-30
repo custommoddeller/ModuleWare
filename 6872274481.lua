@@ -10435,9 +10435,9 @@ end)
 						SmoothAntivoidPart.Size = Vector3.new(10000, 15, 10000)
 						SmoothAntivoidPart.Position = Vector3.new(entityLibrary.character.HumanoidRootPart.Position.X, 15, entityLibrary.character.HumanoidRootPart.Position.Z)
 						SmoothAntivoidPart.Anchored = true
-						SmoothAntivoid.CanCollide = false
-						SmoothAntivoid.Transparency = 0.5
-						SmoothAntivoid.Color = Color3.fromHSV(SmoothAntivoidColor.hue, SmoothAntivoidColor.sat, SmoothAntivoidColor.val)
+						SmoothAntivoidPart.CanCollide = false
+						SmoothAntivoidPart.Transparency = 0.5
+						SmoothAntivoidPart.Color = Color3.fromHSV(SmoothAntivoidColor.hue, SmoothAntivoidColor.sat, SmoothAntivoidColor.val)
 
 						SAVPConnection = SmoothAntivoidPart.Touched:Connect(function(touchedpart)
 							if touchedpart.Parent == lplr.Character and entityLibrary.isAlive then
