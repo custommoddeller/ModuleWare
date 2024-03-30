@@ -10764,9 +10764,10 @@ end)
     runFunction(function()
         local Messages = {"ModuleWare","GG","69","EZ!","GET BETTER","TRASH","LOL","SKIDDED"}
         local old
-        local FunnyIndicator = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api:CreateOptionsButton({
-            ["Name"] = "ModuleWareIndicator",
-            ["Callback"] = function(Callback)
+        local FunnyIndicator = {Enabled = false}
+        FunnyIndicator = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api:CreateOptionsButton({
+            Name = "ModuleWareIndicator",
+            Callback = function(Callback)
                 if callback then
                     old = debug.getupvalue(bedwars["DamageIndicator"],10,{Create})
                     debug.setupvalue(bedwars["DamageIndicator"],10,{
@@ -10781,7 +10782,7 @@ end)
                         end
                     })
                 else
-                    debug.setupvalue(bedwars["DamageIndicator"],10,{
+                    debug.setupvalue(bedwars.DamageIndicator,10,{
                         Create = old
                     })
                     old = nil
