@@ -5445,22 +5445,15 @@ runFunction(function()
         Name = "DamageIndicators",
         Function = function(Callback)
             if callback then
-                old = debug.getupvalue(bedwars.DamageIndicator, 10)["Create"]
-                debug.setupvalue(bedwars.DamageIndicator, 10, {
-                    Create = function(self, obj, ...)
-                        spawn(function()
-                            pcall(function()
-                                obj.Parent.Text = Messages[math.random(1, #Messages)]
-                                obj.Parent.TextColor3 = Color3.fromHSV(tick() % 10 / 10, 2, 2)
-                            end)
-                        end)
-                        return game:GetService("TweenService"):Create(obj, ...)
-                    end
-                })
+				old = debug.setupvalue(bedwars.DamageIndicator, 10, {
+					Create = function(self, obj, ...)
+						task.spawn(function()
+                            obj.Parent.Text = Messages[1,#Messages]
+						end)
+						return tweenService:Create(obj, ...)
+					end
+				})
             else
-                debug.setupvalue(bedwars.DamageIndicator, 10, {
-                    Create = old
-                })
                 old = nil
             end
         end
