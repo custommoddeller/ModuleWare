@@ -10422,6 +10422,7 @@ end)
 
 	runFunction(function()
 		local SmoothAntivoid = {Enabled = false}
+		local SmoothAntivoidColor = {hue = 284, sat = 100, val = 100}
 		local SmoothAntivoidPart
 		local SAVPConnection
 		SmoothAntivoid = GuiLibrary.ObjectsThatCanBeSaved.WorldWindow.Api.CreateOptionsButton({
@@ -10431,8 +10432,12 @@ end)
 					task.spawn(function()
 						SmoothAntivoidPart = Instance.new("Part")
 						SmoothAntivoidPart.Parent = workspace
-						SmoothAntivoidPart.Size = Vector3.new(10000, 5, 10000)
+						SmoothAntivoidPart.Size = Vector3.new(10000, 15, 10000)
 						SmoothAntivoidPart.Position = Vector3.new(entityLibrary.character.HumanoidRootPart.Position.X, 45, entityLibrary.character.HumanoidRootPart.Position.Z)
+						SmoothAntivoidPart.Anchored = true
+						SmoothAntivoid.CanCollide = false
+						SmoothAntivoid.Transparency = 0.5
+						SmoothAntivoid.Color = Color3.fromHSV(SmoothAntivoidColor.hue, SmoothAntivoidColor.sat, SmoothAntivoidColor.val)
 
 						SAVPConnection = SmoothAntivoidPart.Touched:Connect(function(touchedpart)
 							if touchedpart.Parent == lplr.Character and entityLibrary.isAlive then
@@ -10446,6 +10451,14 @@ end)
 					SmoothAntivoidPart:Destroy()
 					SAVPConnection:Disconnect()
 				end	
+			end
+		})
+		SmoothAntivoidColor = SmoothAntivoid.CreateColorSlider({
+			Name = "Color", 
+			Function = function(hue, sat, val) 
+				if SmoothAntivoid.Enabled and SmoothAntivoidPart then 
+					SmoothAntivoidPart.Color = Color3.fromHSV(hue, sat, val)
+				end
 			end
 		})
 	end)
