@@ -10465,7 +10465,7 @@ end)
 		})
 	end)
 
-	runFunction(function() -- credits to _dremi on discord for finding the method (godpaster and the other skid skidded it from him)
+	--[[runFunction(function() -- credits to _dremi on discord for finding the method (godpaster and the other skid skidded it from him)
 		local SetEmote = {Enabled = false}
 		local oldemote
 		NightmareExploit = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
@@ -10482,7 +10482,7 @@ end)
 				end
 			end
 		})
-	end)
+	end)--]]
 
 	runFunction(function()
 		local BoostAirJump = {Enabled = false}
