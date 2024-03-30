@@ -3513,6 +3513,10 @@ runFunction(function()
 			{CFrame = CFrame.new(0.7, -0.71, 0.59) * CFrame.Angles(math.rad(-84), math.rad(50), math.rad(-38)), Time = 0.1},
 			{CFrame = CFrame.new(0.7, -0.71, 0.59) * CFrame.Angles(math.rad(-84), math.rad(50), math.rad(-38)), Time = 0.05},
 			{CFrame = CFrame.new(0.63, -0.1, 1.37) * CFrame.Angles(math.rad(-84), math.rad(50), math.rad(-38)), Time = 0.15}
+		},
+		["ModuleWare"] = {
+			{CFrame = CFrame.new(0.69, -0.7, 0.6) * CFrame.Angles(math.rad(295), math.rad(55), math.rad(290)), Time = 0.15},
+			{CFrame = CFrame.new(0.69, -0.71, 0.6) * CFrame.Angles(math.rad(200), math.rad(60), math.rad(1)), Time = 9e9}
 		}
 	}
 
@@ -3829,7 +3833,7 @@ runFunction(function()
     killaurarange = Killaura.CreateSlider({
         Name = "Attack range",
         Min = 1,
-        Max = 18,
+        Max = 20,
         Function = function(val) 
 			if killaurarangecirclepart then 
 				killaurarangecirclepart.Size = Vector3.new(val * 0.7, 0.01, val * 0.7)
@@ -3983,8 +3987,7 @@ runFunction(function()
 		Name = "Range Visualizer",
 		Function = function(callback)
 			if callback then 
-				--context issues moment
-			--[[	killaurarangecirclepart = Instance.new("MeshPart")
+				killaurarangecirclepart = Instance.new("MeshPart")
 				killaurarangecirclepart.MeshId = "rbxassetid://3726303797"
 				killaurarangecirclepart.Color = Color3.fromHSV(killauracolor["Hue"], killauracolor["Sat"], killauracolor.Value)
 				killaurarangecirclepart.CanCollide = false
@@ -3994,7 +3997,7 @@ runFunction(function()
 				if Killaura.Enabled then 
 					killaurarangecirclepart.Parent = gameCamera
 				end
-				bedwars.QueryUtil:setQueryIgnored(killaurarangecirclepart, true)]]
+				bedwars.QueryUtil:setQueryIgnored(killaurarangecirclepart, true)
 			else
 				if killaurarangecirclepart then 
 					killaurarangecirclepart:Destroy()
