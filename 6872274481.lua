@@ -5442,7 +5442,7 @@ runFunction(function()
     local old
     local FunnyIndicator = {Enabled = false}
     FunnyIndicator = GuiLibrary.ObjectsThatCanBeSaved.WorldWindow.Api.CreateOptionsButton({
-        Name = "DamageIndicators",
+        Name = "ModuleWareIndicators",
         Function = function(Callback)
             if callback then
 				old = debug.setupvalue(bedwars.DamageIndicator, 10, {
