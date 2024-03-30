@@ -10444,7 +10444,7 @@ end)
 						SAVPConnection = SmoothAntivoidPart.Touched:Connect(function(touchedpart)
 							if touchedpart.Parent == lplr.Character and entityLibrary.isAlive and not isTouched then
 								for i = 1, 8 do
-									if entityLibrary.character.HumanoidRootPart.Velocity.Y >= 75 then warningNotification("yes", "ok", 2) end
+									if entityLibrary.character.HumanoidRootPart.Velocity.Y >= 75 then break end
 									entityLibrary.character.HumanoidRootPart.Velocity = Vector3.new(entityLibrary.character.HumanoidRootPart.Velocity.X, entityLibrary.character.HumanoidRootPart.Velocity.Y + 3, entityLibrary.character.HumanoidRootPart.Velocity.Z)
 									task.wait(0.1)
 								end
