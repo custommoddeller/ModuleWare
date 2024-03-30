@@ -10513,9 +10513,9 @@ end)
 	end)
 
 	runFunction(function()
-		local InfHealth = {Enabled = false}
-		InfHealth = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
-			Name = "InfHealth",
+		local RichShader = {Enabled = false}
+		RichShader = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
+			Name = "RichShader",
 			Function = function(callback)
 				if callback then 
 					task.spawn(function()
