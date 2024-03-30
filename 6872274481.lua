@@ -5438,7 +5438,7 @@ runFunction(function()
 end)
 
 runFunction(function()
-    local Messages = {"Imagine not using supernova!", "ez", "blam!", "supernova!", "EZ!!", "Knock!", "Clapped!", "NoLifeIdiot!", "Asshole!", "BALLSHOT!", "Get beamed by supernova", "CockShot!", "Get beamed!",  "supernova on top!"}
+    local Messages = {"Wham!", "Pop!", "Boom!", "Whack!", "Hit!"}
     local old
     local FunnyIndicator = {Enabled = false}
     FunnyIndicator = GuiLibrary.ObjectsThatCanBeSaved.WorldWindow.Api.CreateOptionsButton({
