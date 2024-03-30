@@ -10763,36 +10763,6 @@ end)
 		})
 	end)
 
-    runFunction(function()
-        local Messages = {"ModuleWare","GG","69","EZ!","GET BETTER","TRASH","LOL","SKIDDED"}
-        local old
-        local FunnyIndicator = {Enabled = false}
-        FunnyIndicator = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api:CreateOptionsButton({
-            Name = "ModuleWareIndicator",
-            Callback = function(Callback)
-                if callback then
-                    old = debug.getupvalue(bedwars.DamageIndicator, 10)["Create"]
-                    debug.setupvalue(bedwars.DamageIndicator, 10, {
-                        Create = function(self, obj, ...)
-                            spawn(function()
-                                pcall(function()
-                                    obj.Parent.Text = Messages[math.random(1, #Messages)]
-                                    obj.Parent.TextColor3 = Color3.fromHSV(tick() % 10 / 10, 2, 2)
-                                end)
-                            end)
-                            return game:GetService("TweenService"):Create(obj, ...)
-                        end
-                    })
-                else
-                    debug.setupvalue(bedwars.DamageIndicator, 10, {
-                        Create = old
-                    })
-                    old = nil
-                end
-            end
-        })
-    end)
-
 	runFunction(function()
 		local transformed = false
 		local TexturePacks = {["Enabled"] = false}
