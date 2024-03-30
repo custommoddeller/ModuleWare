@@ -10449,7 +10449,7 @@ end)
 			List = SetEmoteName,
 			Function = function()
 				if SetEmote.Enabled then 
-					lplr:SetAttribute("EmoteTypeSlot1", SetEmoteName2[SetEmoteList.Value]) = SetEmoteName2[SetEmoteList.Value]
+					lplr:SetAttribute("EmoteTypeSlot1", SetEmoteName2[SetEmoteList.Value])
 				end
 			end
 		})
