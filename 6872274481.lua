@@ -10764,7 +10764,7 @@ end)
     runFunction(function()
         local Messages = {"ModuleWare","GG","69","EZ!","GET BETTER","TRASH","LOL","SKIDDED"}
         local old
-        local FunnyIndicator = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api:CreateToggle({
+        local FunnyIndicator = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api:CreateOptionsButton({
             ["Name"] = "ModuleWareIndicator",
             ["Callback"] = function(Callback)
                 if callback then
