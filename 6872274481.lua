@@ -10443,10 +10443,13 @@ end)
 
 						SAVPConnection = SmoothAntivoidPart.Touched:Connect(function(touchedpart)
 							if touchedpart.Parent == lplr.Character and entityLibrary.isAlive and not isTouched then
-								for i = 1, 8 do
-									entityLibrary.character.HumanoidRootPart.Velocity = Vector3.new(entityLibrary.character.HumanoidRootPart.Velocity.X, entityLibrary.character.HumanoidRootPart.Velocity.Y + 3, entityLibrary.character.HumanoidRootPart.Velocity.Z)
-									task.wait(0.1)
-								end
+								entityLibrary.character.HumanoidRootPart.Velocity = Vector3.new(entityLibrary.character.HumanoidRootPart.Velocity.X, entityLibrary.character.HumanoidRootPart.Velocity.Y / 5, entityLibrary.character.HumanoidRootPart.Velocity.Z)
+								task.spawn(function()
+									repeat
+										entityLibrary.character.HumanoidRootPart.Velocity = Vector3.new(entityLibrary.character.HumanoidRootPart.Velocity.X, entityLibrary.character.HumanoidRootPart.Velocity.Y + 3, entityLibrary.character.HumanoidRootPart.Velocity.Z)
+										task.wait(0.1)
+									until (entityLibrary.character.HumanoidRootPart.Velocity >= 120 or not entityLibrary.isAlive or not isTouched)
+							end)
 								isTouched = true
 								task.wait(1)
 								isTouched = false
