@@ -10435,7 +10435,7 @@ end)
 						SmoothAntivoidPart = Instance.new("Part")
 						SmoothAntivoidPart.Parent = workspace
 						SmoothAntivoidPart.Size = Vector3.new(10000, 15, 10000)
-						SmoothAntivoidPart.Position = Vector3.new(entityLibrary.character.HumanoidRootPart.Position.X, 15, entityLibrary.character.HumanoidRootPart.Position.Z)
+						SmoothAntivoidPart.Position = Vector3.new(entityLibrary.character.HumanoidRootPart.Position.X, 31, entityLibrary.character.HumanoidRootPart.Position.Z)
 						SmoothAntivoidPart.Anchored = true
 						SmoothAntivoidPart.CanCollide = false
 						SmoothAntivoidPart.Transparency = 0.5
