@@ -10413,43 +10413,79 @@ end)
 		})
 	end)
 
-	runFunction(function()
-		local SetEmote = {Enabled = false}
-		local SetEmoteList = {Value = ""}
+	runFunction(function() -- credits to _dremi on discord for finding the method (godpaster and the other skid skidded it from him)
+		local SetEmote = {}
+		local SetEmoteList = {Value = ''}
 		local oldemote
-		local SetEmoteName2 = {}
+		local emo2 = {}
 		SetEmote = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
-			Name = "SetEmote",
-			Function = function(callback)
-				if callback then
-					oldemote = lplr:GetAttribute("EmoteTypeSlot1")
-					task.spawn(function()
-						repeat task.wait() until matchState ~= 0 or not SetEmote.Enabled
-						if SetEmote.Enabled then
-							oldemote = lplr:GetAttribute("EmoteTypeSlot1")
-							lplr:SetAttribute("EmoteTypeSlot1", SetEmoteName2[SetEmoteList.Value])
-						end
-					end)
+			Name = 'SetEmote',
+			Function = function(calling)
+				if calling then
+					oldemote = lplr:GetAttribute('EmoteTypeSlot1')
+					lplr:SetAttribute('EmoteTypeSlot1', emo2[SetEmoteList.Value])
 				else
 					if oldemote then 
-						lplr:SetAttribute("EmoteTypeSlot1", oldemote)
+						lplr:GetAttribute('EmoteTypeSlot1', oldemote)
 						oldemote = nil 
 					end
 				end
 			end
 		})
-		local SetEmoteName = {}
+		local emo = {}
 		for i,v in pairs(bedwars.EmoteMeta) do 
-			table.insert(SetEmoteName, v.name)
-			SetEmoteName2[v.name] = i
+			table.insert(emo, v.name)
+			emo2[v.name] = i
 		end
-		table.sort(SetEmoteName, function(a, b) return a:lower() < b:lower() end)
+		table.sort(emo, function(a, b) return a:lower() < b:lower() end)
 		SetEmoteList = SetEmote.CreateDropdown({
-			Name = "Emote",
-			List = SetEmoteName,
-			Function = function()
+			Name = 'Emote',
+			List = emo,
+			Function = function(emote)
 				if SetEmote.Enabled then 
-					lplr:SetAttribute("EmoteTypeSlot1", SetEmoteName2[SetEmoteList.Value])
+					lplr:SetAttribute('EmoteTypeSlot1', emo2[emote])
+				end
+			end
+		})
+	end)
+	
+	runFunction(function()
+		local NoEmoteWheel = {}
+		local emoting
+		NoEmoteWheel = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
+			Name = 'NoEmoteWheel',
+			HoverText = 'Removes the old emote wheel and uses the first\nemote in your emote slot.',
+			Function = function(calling)
+				if calling then 
+					table.insert(NoEmoteWheel.Connections, lplr.PlayerGui.ChildAdded:Connect(function(v)
+						local anim
+						if tostring(v) == 'RoactTree' and isAlive(lplr, true) and not emoting then 
+							v:WaitForChild('1'):WaitForChild('1')
+							if not v['1']:IsA('ImageButton') then 
+								return 
+							end
+							v['1'].Visible = false
+							emoting = true
+							bedwars.ClientHandler:Get('Emote'):CallServer({emoteType = lplr:GetAttribute('EmoteTypeSlot1')})
+							local oldpos = lplr.Character.HumanoidRootPart.Position 
+							if tostring(lplr:GetAttribute('EmoteTypeSlot1')):lower():find('nightmare') then 
+								anim = Instance.new('Animation')
+								anim.AnimationId = 'rbxassetid://9191822700'
+								anim = lplr.Character.Humanoid.Animator:LoadAnimation(anim)
+								task.spawn(function()
+									repeat 
+										anim:Play()
+										anim.Animation.Completed:Wait()
+									until not anim
+								end)
+							end
+							repeat task.wait() until ((lplr.Character.HumanoidRootPart.Position - oldpos).Magnitude >= 0.3 or not isAlive(lplr, true))
+							pcall(function() anim:Stop() end)
+							anim = nil
+							emoting = false
+							bedwars.ClientHandler:Get('EmoteCancelled'):CallServer({emoteType = lplr:GetAttribute('EmoteTypeSlot1')})
+						end
+					end))
 				end
 			end
 		})
