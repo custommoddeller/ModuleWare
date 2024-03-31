@@ -9937,6 +9937,20 @@ end)
 	end)
 
 	runFunction(function()
+		local AnticheatDamageBypass = {Enabled = false}
+		AnticheatDamageBypass = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
+			Name = "AnticheatDamageBypass",
+			Function = function(callback)
+				if callback then
+					entityLibrary.character.HumanoidRootPart.CFrame = CFrame.new(entityLibrary.character.HumanoidRootPart.CFrame.X, entityLibrary.character.HumanoidRootPart.CFrame.Y - 12, entityLibrary.character.HumanoidRootPart.CFrame.Z)
+					task.wait(0.45)
+					entityLibrary.character.HumanoidRootPart.CFrame = CFrame.new(entityLibrary.character.HumanoidRootPart.CFrame.X, entityLibrary.character.HumanoidRootPart.CFrame.Y + 14, entityLibrary.character.HumanoidRootPart.CFrame.Z)
+				end
+			end
+		})
+	end)
+
+	runFunction(function()
 		local hasTeleported = false
 		local TweenService = game:GetService("TweenService")
 	
